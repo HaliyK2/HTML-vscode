@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        10.输入两个字符串，从第一个字符串中删除第二个字符串中的所有字符串，
+        且不可以便用replace。例如:①输入“They are students”和“aeiou";
+        ②删除之后的第一个 字符串变成“Thy rstdnts”
+        */
+       //把字符串转化为数组
+        var s1 = "They are student";
+        var s2 = "aeiou";
+
+        var sArr1 = s1.split('');//把字符串转换为数组
+        var sArr2 = s2.split('');
+        var indexArr = new Array();//定义一个新数组，用于存储元素相同的下标
+        for(var i=0; i<sArr2.length; i++){//外循环，依次取出sArr2里的值
+            for(var j=0; j<sArr1.length; j++){//内循环，和sArr1的所有元素比较，如果相同则存储sArr1此时的i下标
+                if(sArr2[i] == sArr1[j]){//如果相同，说明s2里面的值存在相同的值s1中
+                    indexArr.push(j);
+                }
+            }
+        }
+        document.write("字符串2在字符串1在重复的下标有："+indexArr);
+        document.write("<br/>");
+        indexArr.sort(//对数组进行排序
+            function compare(a,b){
+                return a-b;
+            }
+        );
+        document.write("字符串2在字符串2在重复的下标排序后："+indexArr);
+        /*把字符串1里面的值依次取出来判断下标是否在indexArr里面
+        如果不在里面的就把该下标的值存储到新数组中
+        */
+
+        var newArr = new Array();//新数组，用于存储删除重复项后的内容
+        for(var j=0; j<sArr1.length; j++){//把字符串1里面的值依次取出来判断下标是否在indexArr里面
+            var isInArr = false;//设置一个参考变量，用来指示此次取出来的值的下标是否在indexArr中，每次循环都默认不在
+            for(var i=0; i<indexArr.length; i++){//将每次取出来的值的j下标和indexArr里面的元素比较
+                if(indexArr[i]==j){//如果存在相等的情况
+                    isInArr=true;//设置它为真
+                    break;//终止内循环，因为已找到了，也是因为之前就对indexArr进行了排序
+                }
+            }
+            if(!isInArr)//如果此次循环的下标不存在indexArr中
+                newArr.push(sArr1[j]);//则把字符数组1的对应值追加到新数组
+        }
+        document.write("<br/>");
+        for(var i in newArr){
+            document.write(newArr[i]);
+        }
+    </script>
+</body>
+</html>
